@@ -1,0 +1,26 @@
+:root{
+    --gray-100:#D4CDCD;
+    --gray-200:#A6A4A4;
+    --gray-300:#908D8D;
+    --gray-400:#777373;
+    --gray-500:#605E5E; 
+
+    --white:#FFFFFF;
+
+    --red:#B10606;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--gray-100);
+    color: var(--gray-500);
+    /* background-image: url('./assets/login.svg');
+    background-repeat: no-repeat; */
+  }
+  
