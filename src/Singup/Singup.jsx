@@ -1,8 +1,12 @@
 import styles from './Singup.module.css'
 import loginIcon from '../assets/login-svgrepo-com.svg'
 import { useState } from 'react';
+import { Modal } from '../Modal/modal';
 
 export function Singup(){
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+
     const [content, setContent] = useState({
         email: '',
         password: ''
@@ -35,11 +39,18 @@ export function Singup(){
             
             const data = await response.json();
             console.log("Usuário criado:", data);
-            alert('Usuário criado com sucesso!');
+            setModalMessage('Usuário criado com sucesso!')
+            setIsModalOpen(true);
         } catch (error) {
             console.log("Erro", "Não foi possível encontrar o usuário desejado")
+            setModalMessage("Erro ao criar usuário, verifique os dados e tente novamente.")
+            setIsModalOpen(true);
         }
     }
+
+    const closeModal = () =>{
+        setIsModalOpen(false)
+    };
 
     return (
         <div className={styles.container}>
@@ -74,6 +85,11 @@ export function Singup(){
                     />
                 </button>
             </form>
+            <Modal 
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                message={modalMessage}
+            />
         </div>
     );
 }
