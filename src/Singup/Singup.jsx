@@ -13,12 +13,29 @@ export function Singup(){
 
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const name = event.target.name.value;
 
-        console.log("Email:", email);
-        console.log("Password:", password);
+        const dados = {
+            nome: name,
+            email: email,
+            senha: password
+        };
 
         try {
+            const response = await fetch ('http://localhost:4000/novoUsuario',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dados),
+            });
+            if(!response.ok){
+                throw new Error (`Erro: ${response.statusText}`);
+            }
             
+            const data = await response.json();
+            console.log("Usuário criado:", data);
+            alert('Usuário criado com sucesso!');
         } catch (error) {
             console.log("Erro", "Não foi possível encontrar o usuário desejado")
         }
@@ -30,6 +47,11 @@ export function Singup(){
                 <strong><p>LianYu</p></strong>
             </div>
             <form onSubmit={handleLoginSubmit} className={styles.input}>
+                <input 
+                    type="text" 
+                    placeholder="Digite o seu nome"
+                    name="name"
+                />
                 <input 
                     type="email" 
                     placeholder="Digite o seu email"
@@ -44,7 +66,7 @@ export function Singup(){
                     className={styles.login}
                     type="submit"
                 >
-                    <strong>Login</strong>
+                    <strong>Resgistre-se</strong>
                     <img 
                         className={styles.icon}
                         src={loginIcon} 
